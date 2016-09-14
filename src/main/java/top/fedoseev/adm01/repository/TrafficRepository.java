@@ -14,5 +14,4 @@ public interface TrafficRepository {
     Traffic get(int id);
 
     List<Traffic> getAll();
-
 }

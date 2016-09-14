@@ -7,7 +7,7 @@ import top.fedoseev.adm01.model.Traffic;
 import java.util.List;
 
 @Repository
-public class DataJpaTrafficRepositoryImpl implements TrafficRepository {
+public class TrafficRepositoryImpl implements TrafficRepository {
 
     @Autowired
     private ProxyTrafficRepository proxy;

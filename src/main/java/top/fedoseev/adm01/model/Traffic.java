@@ -21,7 +21,7 @@ public class Traffic {
 
     @Column(name = "date", nullable = false, columnDefinition = "timestamp default now()")
     @NotNull
-    private LocalDateTime date;
+    protected LocalDateTime date;
 
     @NotEmpty
     @Column(name = "subscriber", nullable = false)

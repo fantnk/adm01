@@ -31,12 +31,11 @@ public class TrafficServiceImpl implements TrafficService {
         return repository.get(id);
     }
 
-//    @Cacheable("traffic")
+    //    @Cacheable("traffic")
     @Override
     public List<Traffic> getAll() {
         return repository.getAll();
     }
-
     /*@CacheEvict(value = "traffic", allEntries = true)
     public void update(Traffic traffic) {
         repository.save(traffic);
