@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import top.fedoseev.adm01.model.SubscriberTo;
+import top.fedoseev.adm01.model.Subscriber;
 import top.fedoseev.adm01.service.SubscriberService;
 
 import java.util.List;
@@ -19,7 +19,7 @@ public class SubscriberAjaxController {
     private SubscriberService service;
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<SubscriberTo> get(@RequestParam("query") long accountNumber) {
+    public List<Subscriber> get(@RequestParam("accountNumber") long accountNumber) {
         return service.get(accountNumber);
     }
 

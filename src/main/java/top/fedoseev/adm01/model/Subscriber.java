@@ -10,7 +10,7 @@ import java.util.List;
 @Table(name = "traffic", uniqueConstraints = {@UniqueConstraint(columnNames = "id", name = "id_UNIQUE")})
 //???
 //@JsonAutoDetect(fieldVisibility = ANY, getterVisibility = NONE, isGetterVisibility = NONE, setterVisibility = NONE)
-public class SubscriberTo {
+public class Subscriber {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     protected Integer id;
@@ -22,7 +22,7 @@ public class SubscriberTo {
     @OneToMany(mappedBy = "subscriber", cascade = CascadeType.ALL)
     protected List<Traffic> trafficList;
 
-    public SubscriberTo() {
+    public Subscriber() {
     }
 
     public Integer getId() {
@@ -57,7 +57,7 @@ public class SubscriberTo {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        SubscriberTo that = (SubscriberTo) o;
+        Subscriber that = (Subscriber) o;
         if (id == null || that.id == null) {
             return false;
         }

@@ -34,9 +34,9 @@ public class TrafficAjaxController extends AbstractTrafficController {
     public TrafficStat getSubscriberTrafficStat(
             @RequestParam(value = "startDate") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm") LocalDateTime startDate,
             @RequestParam(value = "endDate") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm") LocalDateTime endDate,
-            @RequestParam(value = "subscriber") long subscriber,
+            @RequestParam(value = "accountNumber") long accountNumber,
             @RequestParam(value = "linkType") TrafficStat.LinkType linkType) {
-        return super.getSubscriberTrafficStat(startDate, endDate, subscriber, linkType);
+        return super.getSubscriberTrafficStat(startDate, endDate, accountNumber, linkType);
     }
     /*@Override
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)

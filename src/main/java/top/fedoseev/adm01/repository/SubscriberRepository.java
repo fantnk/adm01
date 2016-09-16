@@ -1,9 +1,9 @@
 package top.fedoseev.adm01.repository;
 
-import top.fedoseev.adm01.model.SubscriberTo;
+import top.fedoseev.adm01.model.Subscriber;
 
 import java.util.List;
 
 public interface SubscriberRepository {
-    List<SubscriberTo> get(long accountNumber);
+    List<Subscriber> get(long accountNumber);
 }

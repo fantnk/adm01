@@ -1,9 +1,9 @@
 package top.fedoseev.adm01.service;
 
-import top.fedoseev.adm01.model.SubscriberTo;
+import top.fedoseev.adm01.model.Subscriber;
 
 import java.util.List;
 
 public interface SubscriberService {
-    List<SubscriberTo> get(long accountNumber);
+    List<Subscriber> get(long accountNumber);
 }

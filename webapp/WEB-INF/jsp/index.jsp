@@ -68,8 +68,9 @@
 </div>
 <script type="text/javascript" src="webjars/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript" src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<%--<script type="text/javascript" src="webjars/Bootstrap-3-Typeahead/3.1.1/bootstrap3-typeahead.js"></script>--%>
-<script type="text/javascript" src="resources/js/bootstrap-typeahead.js"></script>
+<script type="text/javascript" src="webjars/Bootstrap-3-Typeahead/3.1.1/bootstrap3-typeahead.js"></script>
+<%--<script type="text/javascript" src="http://twitter.github.com/typeahead.js/releases/latest/typeahead.bundle.js"></script>--%>
+<%--<script type="text/javascript" src="resources/js/bootstrap-typeahead.js"></script>--%>
 </body>
 <script type="text/javascript">
 
@@ -82,62 +83,67 @@
             getResult();
             return false;
         });
+        /*       var accountNumbers = new Bloodhound({
+         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+         queryTokenizer: Bloodhound.tokenizers.whitespace,
+         //            prefetch: '../data/films/post_1960.json',
+         remote: {
+         url: 'ajax/subscriber?query=%QUERY',
+         wildcard: '%QUERY'
+         }
+         });
+
+         $('input[name=accountNumber]').typeahead(null, {
+         name: 'account-number',
+         display: 'accountNumber',
+         source: accountNumbers
+         });*/
+        /*$('input[name=accountNumber]').typeahead({
+         source: function(typeahead, query) {
+         var _this = this;
+         return $.ajax({
+         url: "ajax/subscriber?query=" + query,
+         success: function(data) {
+         return typeahead.process(data);
+         }
+         });
+         },
+         property: "accountNumber"
+         });*/
 
         $('input[name=accountNumber]').typeahead({
-            source: function(typeahead, query) {
-                var _this = this;
-                return $.ajax({
-                    url: "ajax/subscriber?query=" + query,
-                    success: function(data) {
-                        return typeahead.process(data);
+                    //источник данных
+                    source: function (query, process) {
+                        //                        return $.post('ajax/subscriber', {'query':query+"L"},
+                        return $.get('ajax/subscriber', {'accountNumber': query},
+                                function (response) {
+                                    var data = new Array();
+                                    //                                    alert(JSON.parse(response.toString()));
+                                    //преобразовываем данные из json в массив
+                                    $.each(response, function (i, subscriber) {
+                                        data.push(subscriber.accountNumber.toString());
+                                    });
+//                                    alert(data);
+                                    return process(data);
+                                },
+                                'json'
+                        );
                     }
-                });
-            },
-            property: "accountNumber"
-        });
-
-        /*$('input[name=accountNumber]').typeahead({
-         //источник данных
-         source: function (query, process) {
-         //                        return $.post('ajax/subscriber', {'query':query+"L"},
-         return $.get('ajax/subscriber', {'query': query},
-         function (response) {
-         var data = new Array();
-         //                                    alert(JSON.parse(response.toString()));
-         //преобразовываем данные из json в массив
-         $.each(response, function (i, subscriber) {
-         data.push(subscriber.accountNumber);
-         });
-         //                                    alert(data);
-         return process(data);
-         },
-         'json'
-         );
-         }
-         //источник данных
-         //вывод данных в выпадающем списке
-         , highlighter: function (item) {
-         var parts = item.split('_');
-         parts.shift();
-         return parts.join('_');
-         }
-         //вывод данных в выпадающем списке
-         //действие, выполняемое при выборе елемента из списка
-         , updater: function (item) {
-         var parts = item.split('_');
-         var userId = parts.shift();
-         $.post('getuserdata', {'user_id': userId},
-         function (user) {
-         $('input[name=email]').val(user.email);
-         $('input[name=phone]').val(user.phone);
-         },
-         'json'
-         );
-         return parts.join('_');
-         }
-         //действие, выполняемое при выборе елемента из списка
-         }
-         );*/
+                    //источник данных
+                    //вывод данных в выпадающем списке
+                    /*, highlighter: function (item) {
+                     var parts = item.split('_');
+                     parts.shift();
+                     return parts.join('_');
+                     }*/
+                    //вывод данных в выпадающем списке
+                    //действие, выполняемое при выборе елемента из списка
+                    , updater: function (item) {
+                        return item;
+                    }
+                    //действие, выполняемое при выборе елемента из списка
+                }
+        );
         /*$("#accountNumber").typeahead({
          //            triggerLength: 2,
          //            loadingClass: "loading-circle",
@@ -146,7 +152,7 @@
          }*!/
          ajax: {
          url: 'ajax/subscriber',
-         displayField : 'accountNumber',
+         displayField: 'accountNumber',
          method: 'get'
          }
          /!*source: function(request, response) {

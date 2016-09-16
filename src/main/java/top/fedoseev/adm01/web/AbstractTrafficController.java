@@ -25,12 +25,12 @@ public abstract class AbstractTrafficController {
         return trafficService.getAll();
     }
 
-    public TrafficStat getSubscriberTrafficStat(LocalDateTime startDate, LocalDateTime endDate, long subscriber,
+    public TrafficStat getSubscriberTrafficStat(LocalDateTime startDate, LocalDateTime endDate, long accountNumber,
                                                 TrafficStat.LinkType linkType) {
         /*TrafficStat trafficStat = new TrafficStat(LocalDateTime.of(2016, 9, 8, 0, 0),
                 LocalDateTime.of(2016, 9, 8, 14, 0), 30502L, TrafficStat.LinkType.DOWNLINK);*/
 
-        TrafficStat trafficStat = new TrafficStat(startDate, endDate, subscriber, linkType);
+        TrafficStat trafficStat = new TrafficStat(startDate, endDate, accountNumber, linkType);
 
         log.info("getSubscriberTrafficStat");
 

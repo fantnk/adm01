@@ -24,7 +24,7 @@ public class Traffic {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "subscriber_id", nullable = false)
-    protected SubscriberTo subscriber;
+    protected Subscriber subscriber;
 
     @NotEmpty
     //@ColumnDefault("0")
@@ -59,11 +59,11 @@ public class Traffic {
         this.date = date;
     }
 
-    public SubscriberTo getSubscriber() {
+    public Subscriber getSubscriber() {
         return subscriber;
     }
 
-    public void setSubscriber(SubscriberTo subscriber) {
+    public void setSubscriber(Subscriber subscriber) {
         this.subscriber = subscriber;
     }
 
