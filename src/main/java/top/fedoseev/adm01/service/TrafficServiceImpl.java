@@ -25,11 +25,11 @@ public class TrafficServiceImpl implements TrafficService {
     }*/
 
     //public Traffic get(int id) throws NotFoundException {
-    @Override
+    /*@Override
     public Traffic get(int id) {
         //return ExceptionUtil.checkNotFoundWithId(repository.get(id), id);
         return repository.get(id);
-    }
+    }*/
 
     //    @Cacheable("traffic")
     @Override

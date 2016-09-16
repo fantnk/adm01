@@ -1,6 +1,8 @@
 package top.fedoseev.adm01.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import top.fedoseev.adm01.model.Traffic;
 
@@ -10,26 +12,12 @@ import java.util.List;
 public class TrafficRepositoryImpl implements TrafficRepository {
 
     @Autowired
-    private ProxyTrafficRepository proxy;
-
-   /* @Override
-    public Traffic save(Traffic traffic) {
-        return proxy.save(traffic);
-    }
-
-    @Override
-    public boolean delete(int id) {
-        return proxy.delete(id) != 0;
-    }*/
-
-    @Override
-    public Traffic get(int id) {
-        return proxy.findOne(id);
-    }
+    private JdbcTemplate jdbcTemplate;
+    private static final BeanPropertyRowMapper<Traffic> ROW_MAPPER = BeanPropertyRowMapper.newInstance(Traffic.class);
 
     @Override
     public List<Traffic> getAll() {
-        return proxy.findAll();
+        return jdbcTemplate.query("SELECT * FROM Traffic ORDER BY date", ROW_MAPPER);
     }
 
 }

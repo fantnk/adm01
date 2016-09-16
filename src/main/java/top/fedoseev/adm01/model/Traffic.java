@@ -1,6 +1,7 @@
 package top.fedoseev.adm01.model;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -12,20 +13,18 @@ import java.time.LocalDateTime;
 //???
 //@JsonAutoDetect(fieldVisibility = ANY, getterVisibility = NONE, isGetterVisibility = NONE, setterVisibility = NONE)
 public class Traffic {
-    public static final int START_SEQ = 100000;
-
     @Id
-    @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     protected Integer id;
 
     @Column(name = "date", nullable = false, columnDefinition = "timestamp default now()")
     @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     protected LocalDateTime date;
 
-    @NotEmpty
-    @Column(name = "subscriber", nullable = false)
-    protected long subscriber;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "subscriber_id", nullable = false)
+    protected SubscriberTo subscriber;
 
     @NotEmpty
     //@ColumnDefault("0")
@@ -60,11 +59,11 @@ public class Traffic {
         this.date = date;
     }
 
-    public long getSubscriber() {
+    public SubscriberTo getSubscriber() {
         return subscriber;
     }
 
-    public void setSubscriber(long subscriber) {
+    public void setSubscriber(SubscriberTo subscriber) {
         this.subscriber = subscriber;
     }
 

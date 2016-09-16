@@ -5,24 +5,42 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import top.fedoseev.adm01.model.Traffic;
 import top.fedoseev.adm01.service.TrafficService;
+import top.fedoseev.adm01.service.TrafficStatService;
+import top.fedoseev.adm01.to.TrafficStat;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public abstract class AbstractTrafficController {
     protected final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    private TrafficService service;
+    private TrafficService trafficService;
+
+    @Autowired
+    private TrafficStatService trafficStatService;
 
     public List<Traffic> getAll() {
-        log.info("getAll");
-        return service.getAll();
+        log.info("get");
+        return trafficService.getAll();
     }
 
-    public Traffic get(int id) {
+    public TrafficStat getSubscriberTrafficStat(LocalDateTime startDate, LocalDateTime endDate, long subscriber,
+                                                TrafficStat.LinkType linkType) {
+        /*TrafficStat trafficStat = new TrafficStat(LocalDateTime.of(2016, 9, 8, 0, 0),
+                LocalDateTime.of(2016, 9, 8, 14, 0), 30502L, TrafficStat.LinkType.DOWNLINK);*/
+
+        TrafficStat trafficStat = new TrafficStat(startDate, endDate, subscriber, linkType);
+
+        log.info("getSubscriberTrafficStat");
+
+        return trafficStatService.getSubscriberTrafficStat(trafficStat);
+    }
+
+    /*public Traffic get(int id) {
         log.info("get " + id);
         return service.get(id);
-    }
+    }*/
 
     /*public Traffic create(Traffic traffic) {
         traffic.setId(null);
