@@ -54,10 +54,6 @@ public class TrafficStats {
         return linkType;
     }
 
-    /*public void setLinkType(LinkType linkType) {
-        this.linkType = linkType;
-    }*/
-
     @Override
     public String toString() {
         return "TrafficStat{" +

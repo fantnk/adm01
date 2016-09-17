@@ -65,6 +65,14 @@
 </div>
 <div class="container">
     <div class="lead">
+        <p>Скрипт populateDB производит наполнение БД тестовыми данными. Для номеров с 1090001 до 1090020 в таблице
+        traffic содержатся данные по трафику (в промежутке с "2016-09-08 00:00:00" до "2016-09-10 00:00:00").</p>
+    </div>
+</div>
+<div class="container">
+    <div class="lead">
+        <div class="stats">
+        </div>
     </div>
 </div>
 </body>
@@ -82,14 +90,14 @@
                 url: "ajax/trafficstats",
                 data: $('#filter').serialize(),
                 success: function (jsondata) {
-                    $('.lead').html('Статистика за период с <b>' + jsondata.startDate.replace('T', ' ').substr(0, 16)
+                    $('.stats').html('Статистика за период с <b>' + jsondata.startDate.replace('T', ' ').substr(0, 16)
                             + '</b> до <b>' + jsondata.endDate.replace('T', ' ').substr(0, 16) + '</b>' +
                             '<br/>Абонент: ' + jsondata.subscriber +
                             '<br/>Направление: ' + jsondata.linkType +
                             '<br/>Объем переданного трафика: ' + jsondata.bytesTransferred + ' байт' +
                             '<br/>Пропускная способность: ' + Math.round(jsondata.speed) + ' бит/c');
                 },
-                error: function(xhr, status, error) {
+                error: function (xhr, status, error) {
                     failedNote = noty({
                         text: 'Failed: ' + xhr.statusText + '<br>',
                         type: 'error',

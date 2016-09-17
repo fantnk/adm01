@@ -22,10 +22,4 @@ public class SubscriberAjaxController {
     public List<Subscriber> findByAccountNumberPart(@RequestParam("accountNumber") long accountNumber) {
         return service.findByAccountNumberPart(accountNumber);
     }
-
-    /*@RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<SubscriberTo> findByAccountNumberPart(@PathVariable("query") long accountNumber) {
-        return service.findByAccountNumberPart(accountNumber);
-    }*/
-
 }

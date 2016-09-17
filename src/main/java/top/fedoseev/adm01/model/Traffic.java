@@ -10,8 +10,6 @@ import java.time.LocalDateTime;
 @Entity
 @Access(AccessType.FIELD)
 @Table(name = "traffic", uniqueConstraints = {@UniqueConstraint(columnNames = "id", name = "id_UNIQUE")})
-//???
-//@JsonAutoDetect(fieldVisibility = ANY, getterVisibility = NONE, isGetterVisibility = NONE, setterVisibility = NONE)
 public class Traffic {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,20 +25,14 @@ public class Traffic {
     protected Subscriber subscriber;
 
     @NotEmpty
-    //@ColumnDefault("0")
     @Column(name = "uplink", nullable = false)
     protected int uplink;
 
     @NotEmpty
-    //@ColumnDefault("0")
     @Column(name = "downlink", nullable = false)
     protected int downlink;
 
     public Traffic() {
-    }
-
-    public Traffic(int id) {
-        this.id = id;
     }
 
     public Integer getId() {

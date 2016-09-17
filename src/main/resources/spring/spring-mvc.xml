@@ -19,23 +19,7 @@
                </bean>
             </mvc:message-converters>
         </mvc:annotation-driven>
-    <!--<mvc:annotation-driven>
-        <mvc:message-converters>
-            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
-                <property name="supportedMediaTypes">
-                    <list>
-                        <value>text/plain;charset=UTF-8</value>
-                        <value>text/html;charset=UTF-8</value>
-                    </list>
-                </property>
-            </bean>
-        </mvc:message-converters>
-    </mvc:annotation-driven>-->
 
-    <!--  all resources inside folder src/main/webapp/resources are mapped so they can be referred to inside JSP files -->
-    <mvc:resources mapping="/resources/**" location="/resources/"/>
-
-    <!-- uses WebJars so Javascript and CSS libs can be declared as Maven dependencies (Bootstrap, jQuery...) -->
     <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"

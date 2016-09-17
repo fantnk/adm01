@@ -8,8 +8,6 @@ import java.util.List;
 @Entity
 @Access(AccessType.FIELD)
 @Table(name = "traffic", uniqueConstraints = {@UniqueConstraint(columnNames = "id", name = "id_UNIQUE")})
-//???
-//@JsonAutoDetect(fieldVisibility = ANY, getterVisibility = NONE, isGetterVisibility = NONE, setterVisibility = NONE)
 public class Subscriber {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
