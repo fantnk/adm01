@@ -11,8 +11,8 @@ public interface TrafficService {
     void delete(int id);
     //void delete(int id) throws NotFoundException;*/
 
-//    Traffic get(int id);
-    //Traffic get(int id) throws NotFoundException;
+//    Traffic findByAccountNumberPart(int id);
+    //Traffic findByAccountNumberPart(int id) throws NotFoundException;
 
     List<Traffic> getAll();
 

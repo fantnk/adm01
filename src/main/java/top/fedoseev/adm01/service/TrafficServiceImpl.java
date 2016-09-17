@@ -24,11 +24,11 @@ public class TrafficServiceImpl implements TrafficService {
         repository.delete(id);
     }*/
 
-    //public Traffic get(int id) throws NotFoundException {
+    //public Traffic findByAccountNumberPart(int id) throws NotFoundException {
     /*@Override
-    public Traffic get(int id) {
-        //return ExceptionUtil.checkNotFoundWithId(repository.get(id), id);
-        return repository.get(id);
+    public Traffic findByAccountNumberPart(int id) {
+        //return ExceptionUtil.checkNotFoundWithId(repository.findByAccountNumberPart(id), id);
+        return repository.findByAccountNumberPart(id);
     }*/
 
     //    @Cacheable("traffic")

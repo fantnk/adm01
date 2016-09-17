@@ -19,7 +19,7 @@ public class Traffic {
 
     @Column(name = "date", nullable = false, columnDefinition = "timestamp default now()")
     @NotNull
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     protected LocalDateTime date;
 
     @ManyToOne(fetch = FetchType.EAGER)

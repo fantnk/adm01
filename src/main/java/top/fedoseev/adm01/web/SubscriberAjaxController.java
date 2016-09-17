@@ -19,13 +19,13 @@ public class SubscriberAjaxController {
     private SubscriberService service;
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Subscriber> get(@RequestParam("accountNumber") long accountNumber) {
-        return service.get(accountNumber);
+    public List<Subscriber> findByAccountNumberPart(@RequestParam("accountNumber") long accountNumber) {
+        return service.findByAccountNumberPart(accountNumber);
     }
 
     /*@RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<SubscriberTo> get(@PathVariable("query") long accountNumber) {
-        return service.get(accountNumber);
+    public List<SubscriberTo> findByAccountNumberPart(@PathVariable("query") long accountNumber) {
+        return service.findByAccountNumberPart(accountNumber);
     }*/
 
 }

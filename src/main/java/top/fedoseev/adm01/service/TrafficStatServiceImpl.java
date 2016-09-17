@@ -17,8 +17,10 @@ public class TrafficStatServiceImpl implements TrafficStatService {
     public TrafficStat getSubscriberTrafficStat(TrafficStat trafficStat) {
         trafficStat = repository.getSubscriberTrafficStat(trafficStat);
 
-        trafficStat.setSpeed(8f * (float) trafficStat.getBytesTransferred() /
-                (float) ChronoUnit.SECONDS.between(trafficStat.getStartDate(), trafficStat.getEndDate()));
+        if (trafficStat.getBytesTransferred() != 0) {
+            trafficStat.setSpeed(8f * (float) trafficStat.getBytesTransferred() /
+                    (float) ChronoUnit.SECONDS.between(trafficStat.getStartDate(), trafficStat.getEndDate()));
+        }
 
         return trafficStat;
     }

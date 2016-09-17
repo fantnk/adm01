@@ -1,6 +1,7 @@
 package top.fedoseev.adm01.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -22,11 +23,19 @@ namedParams.addValue("pname", finalName);
 
 int count= this.namedParamJdbcTemplate.queryForInt(namecount, namedParams);*/
     @Override
-    public List<Subscriber> get(long accountNumber) {
-        String sql = "SELECT id, account_number FROM Subscriber WHERE account_number LIKE '" + accountNumber +
+    public List<Subscriber> findByAccountNumberPart(long accountNumber) {
+        String query = "SELECT id, account_number FROM Subscriber WHERE account_number LIKE '" + accountNumber +
                 "%' ORDER BY account_number LIMIT 0,5";
 
-        return jdbcTemplate.query(sql, ROW_MAPPER);
+        return jdbcTemplate.query(query, ROW_MAPPER);
+    }
+
+    @Override
+    public Subscriber getByAccountNumber(long accountNumber) {
+        List<Subscriber> users = jdbcTemplate.query("SELECT id, account_number FROM Subscriber WHERE account_number=?",
+                ROW_MAPPER, accountNumber);
+
+        return DataAccessUtils.singleResult(users);
     }
 
 }

@@ -21,7 +21,7 @@ public abstract class AbstractTrafficController {
     private TrafficStatService trafficStatService;
 
     public List<Traffic> getAll() {
-        log.info("get");
+        log.info("getAll");
         return trafficService.getAll();
     }
 
@@ -37,9 +37,9 @@ public abstract class AbstractTrafficController {
         return trafficStatService.getSubscriberTrafficStat(trafficStat);
     }
 
-    /*public Traffic get(int id) {
-        log.info("get " + id);
-        return service.get(id);
+    /*public Traffic findByAccountNumberPart(int id) {
+        log.info("findByAccountNumberPart " + id);
+        return service.findByAccountNumberPart(id);
     }*/
 
     /*public Traffic create(Traffic traffic) {

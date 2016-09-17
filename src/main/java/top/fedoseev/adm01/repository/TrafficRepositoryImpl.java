@@ -17,7 +17,7 @@ public class TrafficRepositoryImpl implements TrafficRepository {
 
     @Override
     public List<Traffic> getAll() {
-        return jdbcTemplate.query("SELECT * FROM Traffic ORDER BY date", ROW_MAPPER);
+        return jdbcTemplate.query("SELECT * FROM Traffic t LEFT JOIN subscriber s ON t.subscriber_id = s.id ORDER BY date", ROW_MAPPER);
     }
 
 }

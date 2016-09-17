@@ -153,7 +153,7 @@
          ajax: {
          url: 'ajax/subscriber',
          displayField: 'accountNumber',
-         method: 'get'
+         method: 'findByAccountNumberPart'
          }
          /!*source: function(request, response) {
          $.ajax({

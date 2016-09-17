@@ -19,7 +19,7 @@ public class Subscriber {
     @Column(name = "account_number", nullable = false)
     protected long accountNumber;
 
-    @OneToMany(mappedBy = "subscriber", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "subscriber", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     protected List<Traffic> trafficList;
 
     public Subscriber() {
