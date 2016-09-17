@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import top.fedoseev.adm01.to.TrafficStat;
+import top.fedoseev.adm01.to.TrafficStats;
 
 import java.util.HashMap;
 import java.util.List;
@@ -12,13 +12,13 @@ import java.util.Map;
 
 @Repository
 @Transactional(readOnly = true)
-public class TrafficStatRepositoryImpl implements TrafficStatRepository {
+public class TrafficStatsRepositoryImpl implements TrafficStatsRepository {
 
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Override
-    public TrafficStat getSubscriberTrafficStat(TrafficStat trafficStat) {
+    public TrafficStats getSubscriberTrafficStat(TrafficStats trafficStat) {
         Map<String, Object> map = new HashMap<>();
 
         map.put("startDate", trafficStat.getStartDate());

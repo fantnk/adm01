@@ -7,9 +7,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Title</title>
-    <c:set var="url">${pageContext.request.requestURL}</c:set>
-    <base href="${fn:substring(url, 0, fn:length(url) - fn:length(pageContext.request.requestURI))}${pageContext.request.contextPath}/"/>
+    <title>Тестовое задание - Федосеев Александр</title>
 
     <link rel="stylesheet" href="webjars/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="webjars/datatables/1.10.12/css/jquery.dataTables.min.css">
@@ -25,24 +23,28 @@
                         <label class="control-label col-sm-3" for="startDate">From Date:</label>
 
                         <div class="col-sm-3">
-                            <input type="text" class="form-control" name="startDate" id="startDate" required>
+                            <input class="form-control" name="startDate" id="startDate" placeholder="yyyy-MM-dd HH:mm"
+                                   pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31)) (0[0-9]|1[0-9]|2[0-3])(:[0-5][0-9]){1}"
+                                   required>
                         </div>
 
                         <label class="control-label col-sm-3" for="endDate">To Date:</label>
 
                         <div class="col-sm-3">
-                            <input class="form-control" name="endDate" id="endDate" required>
+                            <input class="form-control" name="endDate" id="endDate" placeholder="yyyy-MM-dd HH:mm"
+                                   pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31)) (0[0-9]|1[0-9]|2[0-3])(:[0-5][0-9]){1}"
+                                   required>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-3" for="accountNumber">Subscriber:</label>
+                        <label class="control-label col-sm-3" for="accountNumber">Account Number:</label>
 
                         <div class="col-sm-3">
                             <input class="form-control time-picker" type="number" name="accountNumber"
                                    id="accountNumber" required>
                         </div>
 
-                        <label class="control-label col-sm-3" for="linkType">linkType:</label>
+                        <label class="control-label col-sm-3" for="linkType">Link Type:</label>
 
                         <div class="col-sm-3" id="linkType">
                             <label class="radio-inline"><input type="radio" name="linkType" value="UPLINK" required
@@ -63,134 +65,64 @@
 </div>
 <div class="container">
     <div class="lead">
-        <div class="results">Ждем ответа</div>
     </div>
 </div>
+</body>
 <script type="text/javascript" src="webjars/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript" src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="webjars/Bootstrap-3-Typeahead/3.1.1/bootstrap3-typeahead.js"></script>
-<%--<script type="text/javascript" src="http://twitter.github.com/typeahead.js/releases/latest/typeahead.bundle.js"></script>--%>
-<%--<script type="text/javascript" src="resources/js/bootstrap-typeahead.js"></script>--%>
-</body>
+<script type="text/javascript" src="webjars/noty/2.3.8/js/noty/packaged/jquery.noty.packaged.min.js"></script>
+<script type="text/javascript" src="webjars/datetimepicker/2.4.7/build/jquery.datetimepicker.full.min.js"></script>
 <script type="text/javascript">
 
-    var ajaxUrl = 'ajax/traffic/stat';
-
-    //    $(function () {
     $(document).ready(function () {
         $('#filter').submit(function () {
-//            alert("sd");
-            getResult();
+            $.ajax({
+                type: "POST",
+                url: "ajax/trafficstats",
+                data: $('#filter').serialize(),
+                success: function (jsondata) {
+                    $('.lead').html('Статистика за период с <b>' + jsondata.startDate.replace('T', ' ').substr(0, 16)
+                            + '</b> до <b>' + jsondata.endDate.replace('T', ' ').substr(0, 16) + '</b>' +
+                            '<br/>Абонент: ' + jsondata.subscriber +
+                            '<br/>Направление: ' + jsondata.linkType +
+                            '<br/>Объем переданного трафика: ' + jsondata.bytesTransferred + ' байт' +
+                            '<br/>Пропускная способность: ' + Math.round(jsondata.speed) + ' бит/c');
+                },
+                error: function(xhr, status, error) {
+                    failedNote = noty({
+                        text: 'Failed: ' + xhr.statusText + '<br>',
+                        type: 'error',
+                        timeout: 1500,
+                        layout: 'bottomRight'
+                    });
+                }
+            });
             return false;
         });
-        /*       var accountNumbers = new Bloodhound({
-         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
-         queryTokenizer: Bloodhound.tokenizers.whitespace,
-         //            prefetch: '../data/films/post_1960.json',
-         remote: {
-         url: 'ajax/subscriber?query=%QUERY',
-         wildcard: '%QUERY'
-         }
-         });
-
-         $('input[name=accountNumber]').typeahead(null, {
-         name: 'account-number',
-         display: 'accountNumber',
-         source: accountNumbers
-         });*/
-        /*$('input[name=accountNumber]').typeahead({
-         source: function(typeahead, query) {
-         var _this = this;
-         return $.ajax({
-         url: "ajax/subscriber?query=" + query,
-         success: function(data) {
-         return typeahead.process(data);
-         }
-         });
-         },
-         property: "accountNumber"
-         });*/
 
         $('input[name=accountNumber]').typeahead({
-                    //источник данных
                     source: function (query, process) {
-                        //                        return $.post('ajax/subscriber', {'query':query+"L"},
                         return $.get('ajax/subscriber', {'accountNumber': query},
                                 function (response) {
                                     var data = new Array();
-                                    //                                    alert(JSON.parse(response.toString()));
-                                    //преобразовываем данные из json в массив
                                     $.each(response, function (i, subscriber) {
                                         data.push(subscriber.accountNumber.toString());
                                     });
-//                                    alert(data);
                                     return process(data);
                                 },
                                 'json'
                         );
-                    }
-                    //источник данных
-                    //вывод данных в выпадающем списке
-                    /*, highlighter: function (item) {
-                     var parts = item.split('_');
-                     parts.shift();
-                     return parts.join('_');
-                     }*/
-                    //вывод данных в выпадающем списке
-                    //действие, выполняемое при выборе елемента из списка
-                    , updater: function (item) {
+                    },
+                    updater: function (item) {
                         return item;
                     }
-                    //действие, выполняемое при выборе елемента из списка
                 }
         );
-        /*$("#accountNumber").typeahead({
-         //            triggerLength: 2,
-         //            loadingClass: "loading-circle",
-         /!*remote: {
-         url : 'ajax/subscriber'
-         }*!/
-         ajax: {
-         url: 'ajax/subscriber',
-         displayField: 'accountNumber',
-         method: 'findByAccountNumberPart'
-         }
-         /!*source: function(request, response) {
-         $.ajax({
-         url: "ajax/subscriber",
-         dataType: "json",
-         data: {
-         state: $("#accountNumber").val(),
-         term: request.term
-         },
-         success: function (data) {
-         response(data);
-         }
-         });
-         }*!/
-         //            autoSelect: true
-         });*/
+
     });
 
-    function getResult() {
-        $.ajax({
-            type: "POST",
-            url: ajaxUrl,
-            data: $('#filter').serialize(),
-            success: function (jsondata) {
-                $('.results').html('Статистика за период с <b>' + jsondata.startDate.replace('T', ' ').substr(0, 16)
-                        + '</b> до <b>' + jsondata.endDate.replace('T', ' ').substr(0, 16) + '</b>' +
-                        '<br/>Абонент: ' + jsondata.subscriber +
-                        '<br/>Направление: ' + jsondata.linkType +
-                        '<br/>Объем переданного трафика: ' + jsondata.bytesTransferred + ' байт' +
-                        '<br/>Пропускная способность: ' + jsondata.speed + ' бит/c');
-            }
-        });
-        return false;
-    }
 </script>
-<script type="text/javascript" src="webjars/datatables/1.10.12/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="webjars/datetimepicker/2.4.7/build/jquery.datetimepicker.full.min.js"></script>
 <script type="text/javascript">
     $(function () {
         var startDate = $('#startDate');

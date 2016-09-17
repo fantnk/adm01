@@ -17,9 +17,4 @@ public class SubscriberServiceImpl implements SubscriberService {
     public List<Subscriber> findByAccountNumberPart(long accountNumber) {
         return repository.findByAccountNumberPart(accountNumber);
     }
-
-    @Override
-    public Subscriber getByAccountNumber(long accountNumber) {
-        return repository.getByAccountNumber(accountNumber);
-    }
 }

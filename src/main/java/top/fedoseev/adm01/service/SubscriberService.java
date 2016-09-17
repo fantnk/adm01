@@ -6,6 +6,4 @@ import java.util.List;
 
 public interface SubscriberService {
     List<Subscriber> findByAccountNumberPart(long accountNumber);
-
-    Subscriber getByAccountNumber(long accountNumber);
 }

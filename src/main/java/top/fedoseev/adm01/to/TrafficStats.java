@@ -2,7 +2,7 @@ package top.fedoseev.adm01.to;
 
 import java.time.LocalDateTime;
 
-public class TrafficStat {
+public class TrafficStats {
     private final LocalDateTime startDate;
     private final LocalDateTime endDate;
     private final long subscriber;
@@ -10,7 +10,7 @@ public class TrafficStat {
     private float speed;
     private final LinkType linkType;
 
-    public TrafficStat(LocalDateTime startDate, LocalDateTime endDate, long subscriber, LinkType linkType) {
+    public TrafficStats(LocalDateTime startDate, LocalDateTime endDate, long subscriber, LinkType linkType) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.subscriber = subscriber;
