@@ -7,9 +7,10 @@
     <groupId>top.fedoseev</groupId>
     <artifactId>adm01</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
 
     <build>
-        <finalName>ADM-Systems Test Task</finalName>
+        <finalName>adm01</finalName>
         <defaultGoal>package</defaultGoal>
         <plugins>
             <plugin>
@@ -23,12 +24,13 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.19.1</version>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.6</version>
                 <configuration>
-                    <argLine>-Dfile.encoding=UTF-8</argLine>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
 
