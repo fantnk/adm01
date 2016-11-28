@@ -3,4 +3,4 @@
 Выполнить деплой файла target/adm01.war на сервер Tomcat.
 Открыть в  браузере http://server:port/adm01
 
-Протестировано на MySQL 5.7.12, Tomcat 8.0.33.
+Протестировано на MySQL 5.7.12, PostgreSQL 9.5.3, Tomcat 8.0.33, 8.5.8.

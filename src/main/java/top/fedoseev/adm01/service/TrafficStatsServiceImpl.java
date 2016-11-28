@@ -11,8 +11,12 @@ import java.time.temporal.ChronoUnit;
 @Service
 public class TrafficStatsServiceImpl implements TrafficStatsService {
 
+    private final TrafficStatsRepository repository;
+
     @Autowired
-    private TrafficStatsRepository repository;
+    public TrafficStatsServiceImpl(TrafficStatsRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public TrafficStats getSubscriberTrafficStat(TrafficStats trafficStat) {

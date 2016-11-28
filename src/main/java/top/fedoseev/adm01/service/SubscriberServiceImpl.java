@@ -10,8 +10,12 @@ import java.util.List;
 @Service
 public class SubscriberServiceImpl implements SubscriberService {
 
+    private final SubscriberRepository repository;
+
     @Autowired
-    private SubscriberRepository repository;
+    public SubscriberServiceImpl(SubscriberRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public List<Subscriber> findByAccountNumberPart(long accountNumber) {

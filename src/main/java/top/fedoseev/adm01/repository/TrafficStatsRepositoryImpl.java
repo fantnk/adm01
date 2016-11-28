@@ -14,8 +14,12 @@ import java.util.Map;
 @Transactional(readOnly = true)
 public class TrafficStatsRepositoryImpl implements TrafficStatsRepository {
 
+    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
     @Autowired
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    public TrafficStatsRepositoryImpl(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+    }
 
     @Override
     public TrafficStats getSubscriberTrafficStat(TrafficStats trafficStat) {

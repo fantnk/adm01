@@ -11,14 +11,18 @@ import java.util.List;
 @Repository
 public class SubscriberRepositoryImpl implements SubscriberRepository {
 
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
     private static final BeanPropertyRowMapper<Subscriber> ROW_MAPPER = BeanPropertyRowMapper.newInstance(Subscriber.class);
+
+    @Autowired
+    public SubscriberRepositoryImpl(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     @Override
     public List<Subscriber> findByAccountNumberPart(long accountNumber) {
-        String query = "SELECT id, account_number FROM Subscriber WHERE account_number LIKE '" + accountNumber +
-                "%' ORDER BY account_number LIMIT 0,5";
+        String query = "SELECT id, account_number FROM Subscriber WHERE CAST(account_number AS CHAR(20)) LIKE '"
+                + accountNumber + "%' ORDER BY account_number LIMIT 5";
 
         return jdbcTemplate.query(query, ROW_MAPPER);
     }
